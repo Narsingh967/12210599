@@ -88,7 +88,7 @@ function App() {
       <motion.h1
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
         className={`text-4xl md:text-5xl font-bold mb-10 text-center transition-colors duration-500 ${darkMode ? "text-white" : "text-gray-800"}`}
       >
         <span className={`${darkMode ? "text-yellow-400" : "text-blue-600"}`}>URL Shortener</span>
@@ -96,12 +96,15 @@ function App() {
 
       {/* Input and Button */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
         className="flex flex-col items-center w-full"
       >
-        <input
+        <motion.input
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           type="text"
           placeholder='Paste URL here...'
           required
@@ -111,8 +114,9 @@ function App() {
         />
 
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 300 }}
           className='w-full max-w-[150px] h-10 bg-yellow-300 rounded-full font-semibold cursor-pointer hover:border-4 hover:shadow-lg hover:shadow-blue-500 hover:border-white transition-all duration-300 mb-6'
           onClick={handleSubmit}
         >
@@ -204,6 +208,23 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Footer */}
+      <motion.footer
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.5 }}
+        className={`mt-10 text-sm text-center ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+      >
+        <motion.p
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.8, delay: 2 }}
+          className="font-semibold tracking-wide"
+        >
+          Created by <span className="text-yellow-300">Narsingh Prasad</span>
+        </motion.p>
+      </motion.footer>
     </motion.div>
   );
 }
