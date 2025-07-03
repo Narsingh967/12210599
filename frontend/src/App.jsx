@@ -13,9 +13,10 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
 
   const handleSubmit = () => {
-    axios.post('http://localhost:3000/api/short', { originalUrl })
+    axios.post('https://url-shortner-backend-xner.onrender.com/api/short', { originalUrl })
       .then((res) => {
         setShortUrl(res.data.url.shortUrl);
+      
         setQrCode(res.data.url.qrCode);
         setOriginalUrl('');
         setCopied(false);
