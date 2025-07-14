@@ -16,7 +16,6 @@ function App() {
     axios.post('https://url-shortner-backend-xner.onrender.com/api/short', { originalUrl })
       .then((res) => {
         setShortUrl(res.data.url.shortUrl);
-      
         setQrCode(res.data.url.qrCode);
         setOriginalUrl('');
         setCopied(false);
@@ -69,9 +68,9 @@ function App() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
       className={`${darkMode ? "bg-gradient-to-t from-black to-[#020239]" : "bg-white"} transition-colors duration-700 w-full min-h-screen flex flex-col justify-center items-center px-4 py-10`}
     >
       {/* Theme Toggle */}
@@ -103,25 +102,26 @@ function App() {
         className="flex flex-col items-center w-full"
       >
         <motion.input
+          whileFocus={{ scale: 1.02 }}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           type="text"
           placeholder='Paste URL here...'
           required
-          className={`w-full max-w-[400px] h-12 sm:h-14 outline-none border ${darkMode ? "border-white bg-transparent text-white placeholder-gray-300" : "border-gray-400 bg-white text-black placeholder-gray-500"} rounded-full px-4 text-base sm:text-lg mb-6 transition duration-300`}
+          className={`w-full max-w-[400px] h-12 sm:h-14 outline-none border focus:ring-2 ${darkMode ? "border-white bg-transparent text-white placeholder-gray-300 focus:ring-yellow-300" : "border-gray-400 bg-white text-black placeholder-gray-500 focus:ring-blue-400"} rounded-full px-4 text-base sm:text-lg mb-6 transition duration-300`}
           value={originalUrl}
           onChange={(e) => setOriginalUrl(e.target.value)}
         />
 
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className='w-full max-w-[150px] h-10 bg-yellow-300 rounded-full font-semibold cursor-pointer hover:border-4 hover:shadow-lg hover:shadow-blue-500 hover:border-white transition-all duration-300 mb-6'
+          whileHover={{ scale: 1.1, boxShadow: "0px 0px 15px rgba(255, 235, 59, 0.6)" }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 500 }}
+          className='w-full max-w-[150px] h-10 bg-yellow-300 rounded-full font-semibold cursor-pointer hover:border-4 hover:shadow-blue-500 hover:border-white transition-all duration-300 mb-6'
           onClick={handleSubmit}
         >
-          Go
+          🚀 Go
         </motion.button>
       </motion.div>
 
@@ -168,7 +168,12 @@ function App() {
                     transition={{ duration: 0.3 }}
                     className="text-green-400 text-sm mt-2"
                   >
-                    Copied to clipboard!
+                    <motion.span
+                      animate={{ opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      ✅ Copied to clipboard!
+                    </motion.span>
                   </motion.p>
                 )}
               </AnimatePresence>
@@ -187,6 +192,14 @@ function App() {
                     alt="QR Code"
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
+                    whileHover={{
+                      y: [0, -5, 0],
+                      transition: {
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "easeInOut"
+                      }
+                    }}
                     transition={{ type: "spring", stiffness: 150, damping: 10 }}
                     className="w-20 h-20 mx-auto border-2 border-white rounded-lg"
                   />
